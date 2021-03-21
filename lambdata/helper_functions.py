@@ -2,30 +2,31 @@
 
 import pandas as pd
 import numpy as np
+import datetime
 
 
 class CountNulls:
-    def __init__(df):
-        self.DataFrame = df
+    def __init__(self, df):
+        self.df = df
 
-    def null_count(self):
-        null_sum=0
-        columns=df.isna().sum()
-        for i in columns:
-            null_sum += columns[i]
-
-        return null_sum
+    def nullcount(self):
+        return self.df.isnull().sum().sum()
 
 class SplitDates:
-    def __init__(series)
-        self.series = series
+    def __init__(self, series):
+        self.series = series 
 
     def split_dates(self):
-        self.month = self.series.dt.month
-        self.day = self.series.dt.day
-        self.year = self.series.dt.year
-        self.frame = {"month": self.month, "day": self.day, "year": self.year}
-        self.output = pd.DataFrame(self.frame)
+        if type(self.series) != pd.Series:
+            self.series = pd.Series(self.series)
+        if not isinstance(self.series.dtypes, datetime.datetime):
+            self.series = pd.to_datetime(self.series)
+
+        month = self.series.dt.month
+        day = self.series.dt.day
+        year = self.series.dt.year
+        frame = {"month": month, "day": day, "year": year}
+        df = pd.DataFrame(frame)
         
-        return self.output
+        return df
 
